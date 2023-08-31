@@ -42,43 +42,43 @@
             {
                 name: 'Pink Palace Museum',
                 color: '#821a3e',
-                lngLat: [-89.959843,35.124999]
-    },
-    {
+                lngLat: [-89.959843, 35.124999]
+            },
+            {
                 name: 'Brooks Museum',
                 color: '#821a3e',
-                lngLat: [-89.994457,35.144549]
-    },
-    {
+                lngLat: [-89.994457, 35.144549]
+            },
+            {
                 name: 'McBride Rugby Pitch',
                 color: '#1a3282',
-                lngLat: [-89.975219,35.128062]
-    },
-    {
+                lngLat: [-89.975219, 35.128062]
+            },
+            {
                 name: 'Cannon Center',
                 color: '#821a3e',
-                lngLat: [-90.051276,35.150922]
-    },
-    {
+                lngLat: [-90.051276, 35.150922]
+            },
+            {
                 name: 'Bass Pro Shop-Pyramid',
                 color: '#821a3e',
-                lngLat: [-90.052024,35.155971]
-    },
+                lngLat: [-90.052024, 35.155971]
+            },
         ]
-   
+
         sites.forEach(({ name, color, lngLat }) => {
-                  // create the popup
-        const popup = new mapboxgl.Popup({ offset: 25 }).setText(
-            name
-        );
-        // Create a default Marker and add it to the map.
-        const marker1 = new mapboxgl.Marker({ scale: 0.6, color})
-            .setLngLat(lngLat)
-            .setPopup(popup)
-            .addTo(map);
+            // create the popup
+            const popup = new mapboxgl.Popup({ offset: 25 }).setText(
+                name
+            );
+            // Create a default Marker and add it to the map.
+            const marker1 = new mapboxgl.Marker({ scale: 0.6, color })
+                .setLngLat(lngLat)
+                .setPopup(popup)
+                .addTo(map);
         })
-       
-        
+
+
 
         // // create the popup
         // const popup = new mapboxgl.Popup({ offset: 25 }).setText(
@@ -90,31 +90,48 @@
         //     .setLngLat([-89.922409, 35.122134])
         //     .setPopup(popup)
         //     .addTo(map);
-      map.on('load', ()=> {
-        map.addSource("zip-codes", {
-            type: 'geojson',
-            data: 'data/zip-codes.geojson',
-            
-        })
-        map.addLayer({
-            id: 'zip-codes-fill',
-            type: 'fill',
-            source: 'zip-codes',
-            paint: {
-                'fill-color': 'blue',
-                'fill-opacity': 0.8
-            }
-        }); 
-        map.addLayer({
-            id: 'zip-codes-outline',
-            type: 'line',
-            source: 'zip-codes',
-            paint: {
-                'line-color': 'white',
-                'line-width': 2
-            }
+        map.on('load', () => {
+            map.addSource("zip-codes", {
+                type: 'geojson',
+                data: 'data/zip-codes.geojson',
+
+            })
+            map.addLayer({
+                id: 'zip-codes-fill',
+                type: 'fill',
+                source: 'zip-codes',
+                paint: {
+                    'fill-color': [
+                        'match',
+                        ['get', 'name'],
+                        '38117',
+                        'brown',
+                        '38119',
+                        'red',
+                        'steelblue'
+                    ]
+                }
+            }, 'road-label');
+            map.addLayer({
+                id: 'zip-codes-outline',
+                type: 'line',
+                source: 'zip-codes',
+                paint: {
+                    'line-color': 'white',
+                    'line-width': 2
+                }
+            }, 'road-label');
+
+            map.on('click', (e) => {
+               const [selectedZip ] = map.queryRenderedFeatures(e.point, {
+                   layers: ['zip-codes-fill']
+               })
+               if (selectedZip){
+                alert(`Zip Code: ${selectedZip.properties.name}`);
+               }
+            })
+
         });
-      });
     </script>
 
 
