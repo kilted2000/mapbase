@@ -7,17 +7,42 @@
     <title>MapBox Chingu Project</title>
     <link href="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css" rel="stylesheet">
     <script src="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js"></script>
+    <script
+        src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
+    <link rel="stylesheet"
+        href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css"
+        type="text/css">
     <style>
+        html,
         body {
             margin: 0;
             padding: 0;
+            height: 100%;
         }
 
         #map {
-            position: absolute;
-            top: 0;
-            bottom: 0;
             width: 100%;
+            flex-grow: 1;
+            height: 100%;
+        }
+
+        #container {
+            display: flex;
+            height: 100%;
+        }
+
+        #sidebar {
+            width: 18rem;
+            flex-shrink: 0;
+            height: 100%;
+            background-color: bisque;
+            padding: 30px;
+        }
+
+        button {
+            display: block;
+            background-color: cornflowerblue;
+            color: bisque;
         }
     </style>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -26,7 +51,15 @@
 </head>
 
 <body>
-    <div id="map"></div>
+    <div id="container">
+        <div id="sidebar">
+            <button id="fit">See Memphis</button>
+            <button id="fly-to-mudisle">Click Me</button>
+            <button id="reset">Reset</button>
+            <button id="toggle">Toggle</button>
+        </div>
+        <div id="map"></div>
+    </div>
     <script>
         mapboxgl.accessToken = 'pk.eyJ1Ijoia2lsdGVkMjAwMCIsImEiOiJjbGx3cHZoMmsxcHM3M2RzMjg5OHJqeHFxIn0.eelsihCh88fDJ9yfEapJUQ';
         const map = new mapboxgl.Map({
@@ -37,6 +70,13 @@
             center: [-89.922409, 35.122134], // starting position [lng, lat]
             zoom: 10 // starting zoom
         });
+
+        map.addControl(
+            new MapboxGeocoder({
+                accessToken: mapboxgl.accessToken,
+                mapboxgl: mapboxgl
+            })
+        );
 
         const sites = [
             {
@@ -94,6 +134,7 @@
             map.addSource("zip-codes", {
                 type: 'geojson',
                 data: 'data/zip-codes.geojson',
+                promoteId: 'name'
 
             })
             map.addLayer({
@@ -109,7 +150,16 @@
                         '38119',
                         'red',
                         'steelblue'
+                    ],
+                    'fill-opacity': [
+                        'case',
+                        ['boolean', ['feature-state', 'hover'], false],
+                        1,
+                        0.5
                     ]
+                },
+                layout: {
+                    visibility: 'visible'
                 }
             }, 'road-label');
             map.addLayer({
@@ -119,18 +169,80 @@
                 paint: {
                     'line-color': 'white',
                     'line-width': 2
+
                 }
             }, 'road-label');
 
             map.on('click', (e) => {
-               const [selectedZip ] = map.queryRenderedFeatures(e.point, {
-                   layers: ['zip-codes-fill']
-               })
-               if (selectedZip){
-                alert(`Zip Code: ${selectedZip.properties.name}`);
-               }
+                const [selectedZip] = map.queryRenderedFeatures(e.point, {
+                    layers: ['zip-codes-fill']
+                })
+                if (selectedZip) {
+                    alert(`Zip Code: ${selectedZip.properties.name}`);
+                }
             })
 
+            let hoveredPolygonId = null;
+
+            map.on('mousemove', 'zip-codes-fill', (e) => {
+                if (e.features.length > 0) {
+                    if (hoveredPolygonId !== null) {
+                        map.setFeatureState(
+                            { source: 'zip-codes', id: hoveredPolygonId },
+                            { hover: false }
+                        );
+                    }
+                    hoveredPolygonId = e.features[0].id;
+                    map.setFeatureState(
+                        { source: 'zip-codes', id: hoveredPolygonId },
+                        { hover: true }
+                    );
+                }
+            });
+            map.on('mouseleave', 'zip-codes-fill', () => {
+                if (hoveredPolygonId !== null) {
+                    map.setFeatureState(
+                        { source: 'zip-codes', id: hoveredPolygonId },
+                        { hover: false }
+                    );
+                }
+                hoveredPolygonId = null;
+            });
+        });
+
+        document.getElementById('fly-to-mudisle').addEventListener('click', () => {
+            map.flyTo({
+                center: [-90.052894, 35.168315],
+                zoom: 15,
+                pitch: 45,
+            });
+        });
+
+        document.getElementById('reset').addEventListener('click', () => {
+            map.flyTo({
+                center: [-89.966707, 35.141732],
+                zoom: 10,
+                pitch: 0,
+            });
+        });
+        document.getElementById('fit').addEventListener('click', () => {
+            map.fitBounds([
+                [-90.401188, 34.966275], // southwestern corner of the bounds
+                [-89.597921, 35.298526
+                ] // northeastern corner of the bounds
+            ]);
+        });
+        //check how to toggle sidebar on and off
+        document.getElementById('toggle').addEventListener('click', () => {
+            const visibility = sidebar.getLayoutProperty(
+                'sidebar',
+                'visibility'
+            );
+            if (visibility === 'visible') {
+                sidebar.setLayoutProperty('sidebar', 'visibility', 'none');
+            } else {
+                sidebar.setLayoutProperty('sidebar', 'visibility', 'visible');
+            }
         });
     </script>
 
