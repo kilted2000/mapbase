@@ -39,6 +39,15 @@
             padding: 30px;
         }
 
+        #toggle {
+            position: absolute;
+            z-index: 1;
+            width: 50%;
+            left: 50%;
+            margin-left: -25%; 
+            top: 10px;
+        }
+
         button {
             display: block;
             background-color: cornflowerblue;
@@ -53,12 +62,15 @@
 <body>
     <div id="container">
         <div id="sidebar">
+            <h1>Memphis Explorer</h1>
             <button id="fit">See Memphis</button>
             <button id="fly-to-mudisle">Click Me</button>
             <button id="reset">Reset</button>
-            <button id="toggle">Toggle</button>
+            <!-- <button id="toggle">Toggle</button> -->
         </div>
-        <div id="map"></div>
+        <div id="map">
+            <button id="toggle" onclick="hide()">Toggle</button>
+        </div>
     </div>
     <script>
         mapboxgl.accessToken = 'pk.eyJ1Ijoia2lsdGVkMjAwMCIsImEiOiJjbGx3cHZoMmsxcHM3M2RzMjg5OHJqeHFxIn0.eelsihCh88fDJ9yfEapJUQ';
@@ -71,12 +83,23 @@
             zoom: 10 // starting zoom
         });
 
-        map.addControl(
-            new MapboxGeocoder({
-                accessToken: mapboxgl.accessToken,
-                mapboxgl: mapboxgl
-            })
-        );
+        //map.addControl(
+        const geocoder = new MapboxGeocoder({
+            accessToken: mapboxgl.accessToken,
+            mapboxgl: mapboxgl
+        })
+        //);
+
+        document.getElementById('sidebar').appendChild(geocoder.onAdd(map));
+
+        function hide() {
+            let x = document.getElementById("sidebar");
+            if (x.style.display === "none") {
+                x.style.display = "block";
+            } else {
+                x.style.display = "none";
+            }
+        }
 
         const sites = [
             {
@@ -232,18 +255,14 @@
                 ] // northeastern corner of the bounds
             ]);
         });
-        //check how to toggle sidebar on and off
-        document.getElementById('toggle').addEventListener('click', () => {
-            const visibility = sidebar.getLayoutProperty(
-                'sidebar',
-                'visibility'
-            );
-            if (visibility === 'visible') {
-                sidebar.setLayoutProperty('sidebar', 'visibility', 'none');
-            } else {
-                sidebar.setLayoutProperty('sidebar', 'visibility', 'visible');
-            }
-        });
+        // document.getElementById('toggle').addEventListener('click', (e) => {
+        //     const handler = e.target.id;
+        //     if (e.target.clicked) {
+        //         document.getElementById('sidebar').style.x;
+        //     } else {
+        //         document.getElementById('sidebar').style.visibility = 'visible';
+        //     }
+        // });
     </script>
 
 
