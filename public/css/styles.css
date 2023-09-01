@@ -1,5 +1,64 @@
 
-body{
-    background-color: brown;
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
 }
 
+
+#container {
+    display: flex;
+    height: 100%;
+}
+
+#sidebar {
+    background-color: bisque;
+    width: 500px;
+    transition: transform 1s;
+    z-index: 4;
+    height: 100%;
+    padding: 30px;
+}
+
+#map {
+    width: 100vw;
+    flex-grow: 1;
+    height: 100vh;
+
+}
+
+
+
+.toggleBtn {
+    background-color: red;
+    width: 18rem;
+    padding: 5px;
+    height: 3rem;
+    width: 6rem;
+}
+
+button {
+    display: flex;
+    background-color: cornflowerblue;
+    color: bisque;
+    margin-top: 30px;
+}
+
+#toggle {
+    position: absolute;
+    z-index: 3;
+    width: 50%;
+    left: 50%;
+    right: 50%;
+    top: 10px;
+}
+
+.collapsed {
+    transform: translateX(-18rem);
+}
+
+.list-markers {
+    margin-bottom: 10px;
+}

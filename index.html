@@ -12,267 +12,40 @@
     <link rel="stylesheet"
         href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css"
         type="text/css">
-    <style>
-        html,
-        body {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-        }
-
-        #map {
-            width: 100%;
-            flex-grow: 1;
-            height: 100%;
-        }
-
-        #container {
-            display: flex;
-            height: 100%;
-        }
-
-        #sidebar {
-            width: 18rem;
-            flex-shrink: 0;
-            height: 100%;
-            background-color: bisque;
-            padding: 30px;
-        }
-
-        #toggle {
-            position: absolute;
-            z-index: 1;
-            width: 50%;
-            left: 50%;
-            margin-left: -25%; 
-            top: 10px;
-        }
-
-        button {
-            display: block;
-            background-color: cornflowerblue;
-            color: bisque;
-        }
-    </style>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <link rel="stylesheet" href="css/styles.css">
 </head>
 
 <body>
+
     <div id="container">
-        <div id="sidebar">
+        <div id="sidebar" class="collapsed">
+            <div id="search"></div>
             <h1>Memphis Explorer</h1>
-            <button id="fit">See Memphis</button>
-            <button id="fly-to-mudisle">Click Me</button>
-            <button id="reset">Reset</button>
-            <!-- <button id="toggle">Toggle</button> -->
+            <div class="list-group list-group-flush list-markers">
+                <a href="#" class="list-group-item  ">
+                    Pink Palace
+                </a>
+                <a href="#" class="list-group-item ">Brooks</a>
+                <a href="#" class="list-group-item ">Zoo</a>
+                <a href="#" class="list-group-item ">Bass Pro</a>
+                <a class="list-group-item ">UofM</a>
+            </div>
+            <button id="reset" type="button" class="btn btn-primary"
+                style="--bs-btn-padding-y: .15rem; --bs-btn-padding-x: .4rem; --bs-btn-font-size: .65rem;">Reset</button>
+
         </div>
-        <div id="map">
-            <button id="toggle" onclick="hide()">Toggle</button>
-        </div>
+        <button id="toggle" class="toggleBtn" onclick="hide()">Toggle</button>
+        <div id="map"></div>
     </div>
-    <script>
-        mapboxgl.accessToken = 'pk.eyJ1Ijoia2lsdGVkMjAwMCIsImEiOiJjbGx3cHZoMmsxcHM3M2RzMjg5OHJqeHFxIn0.eelsihCh88fDJ9yfEapJUQ';
-        const map = new mapboxgl.Map({
-            container: 'map',
-            // container ID
-            // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
-            style: 'mapbox://styles/mapbox/satellite-streets-v12', // style URL
-            center: [-89.922409, 35.122134], // starting position [lng, lat]
-            zoom: 10 // starting zoom
-        });
-
-        //map.addControl(
-        const geocoder = new MapboxGeocoder({
-            accessToken: mapboxgl.accessToken,
-            mapboxgl: mapboxgl
-        })
-        //);
-
-        document.getElementById('sidebar').appendChild(geocoder.onAdd(map));
-
-        function hide() {
-            let x = document.getElementById("sidebar");
-            if (x.style.display === "none") {
-                x.style.display = "block";
-            } else {
-                x.style.display = "none";
-            }
-        }
-
-        const sites = [
-            {
-                name: 'Pink Palace Museum',
-                color: '#821a3e',
-                lngLat: [-89.959843, 35.124999]
-            },
-            {
-                name: 'Brooks Museum',
-                color: '#821a3e',
-                lngLat: [-89.994457, 35.144549]
-            },
-            {
-                name: 'McBride Rugby Pitch',
-                color: '#1a3282',
-                lngLat: [-89.975219, 35.128062]
-            },
-            {
-                name: 'Cannon Center',
-                color: '#821a3e',
-                lngLat: [-90.051276, 35.150922]
-            },
-            {
-                name: 'Bass Pro Shop-Pyramid',
-                color: '#821a3e',
-                lngLat: [-90.052024, 35.155971]
-            },
-        ]
-
-        sites.forEach(({ name, color, lngLat }) => {
-            // create the popup
-            const popup = new mapboxgl.Popup({ offset: 25 }).setText(
-                name
-            );
-            // Create a default Marker and add it to the map.
-            const marker1 = new mapboxgl.Marker({ scale: 0.6, color })
-                .setLngLat(lngLat)
-                .setPopup(popup)
-                .addTo(map);
-        })
 
 
-
-        // // create the popup
-        // const popup = new mapboxgl.Popup({ offset: 25 }).setText(
-        //     'Mo Dhachaigh!'
-        // );
-
-        // // Create a default Marker and add it to the map.
-        // const marker1 = new mapboxgl.Marker({ scale: 0.6 })
-        //     .setLngLat([-89.922409, 35.122134])
-        //     .setPopup(popup)
-        //     .addTo(map);
-        map.on('load', () => {
-            map.addSource("zip-codes", {
-                type: 'geojson',
-                data: 'data/zip-codes.geojson',
-                promoteId: 'name'
-
-            })
-            map.addLayer({
-                id: 'zip-codes-fill',
-                type: 'fill',
-                source: 'zip-codes',
-                paint: {
-                    'fill-color': [
-                        'match',
-                        ['get', 'name'],
-                        '38117',
-                        'brown',
-                        '38119',
-                        'red',
-                        'steelblue'
-                    ],
-                    'fill-opacity': [
-                        'case',
-                        ['boolean', ['feature-state', 'hover'], false],
-                        1,
-                        0.5
-                    ]
-                },
-                layout: {
-                    visibility: 'visible'
-                }
-            }, 'road-label');
-            map.addLayer({
-                id: 'zip-codes-outline',
-                type: 'line',
-                source: 'zip-codes',
-                paint: {
-                    'line-color': 'white',
-                    'line-width': 2
-
-                }
-            }, 'road-label');
-
-            map.on('click', (e) => {
-                const [selectedZip] = map.queryRenderedFeatures(e.point, {
-                    layers: ['zip-codes-fill']
-                })
-                if (selectedZip) {
-                    alert(`Zip Code: ${selectedZip.properties.name}`);
-                }
-            })
-
-            let hoveredPolygonId = null;
-
-            map.on('mousemove', 'zip-codes-fill', (e) => {
-                if (e.features.length > 0) {
-                    if (hoveredPolygonId !== null) {
-                        map.setFeatureState(
-                            { source: 'zip-codes', id: hoveredPolygonId },
-                            { hover: false }
-                        );
-                    }
-                    hoveredPolygonId = e.features[0].id;
-                    map.setFeatureState(
-                        { source: 'zip-codes', id: hoveredPolygonId },
-                        { hover: true }
-                    );
-                }
-            });
-            map.on('mouseleave', 'zip-codes-fill', () => {
-                if (hoveredPolygonId !== null) {
-                    map.setFeatureState(
-                        { source: 'zip-codes', id: hoveredPolygonId },
-                        { hover: false }
-                    );
-                }
-                hoveredPolygonId = null;
-            });
-        });
-
-        document.getElementById('fly-to-mudisle').addEventListener('click', () => {
-            map.flyTo({
-                center: [-90.052894, 35.168315],
-                zoom: 15,
-                pitch: 45,
-            });
-        });
-
-        document.getElementById('reset').addEventListener('click', () => {
-            map.flyTo({
-                center: [-89.966707, 35.141732],
-                zoom: 10,
-                pitch: 0,
-            });
-        });
-        document.getElementById('fit').addEventListener('click', () => {
-            map.fitBounds([
-                [-90.401188, 34.966275], // southwestern corner of the bounds
-                [-89.597921, 35.298526
-                ] // northeastern corner of the bounds
-            ]);
-        });
-        // document.getElementById('toggle').addEventListener('click', (e) => {
-        //     const handler = e.target.id;
-        //     if (e.target.clicked) {
-        //         document.getElementById('sidebar').style.x;
-        //     } else {
-        //         document.getElementById('sidebar').style.visibility = 'visible';
-        //     }
-        // });
-    </script>
-
-
-
-
-
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
         crossorigin="anonymous"></script>
-    <script src="css/index.js"></script>
+    <script src="map/index.js"></script>
 </body>
 
 </html>
