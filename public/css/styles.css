@@ -29,7 +29,9 @@ body {
 
 }
 
-
+#search{
+    margin-bottom: 10px;
+}
 
 .toggleBtn {
     background-color: red;
@@ -61,4 +63,14 @@ button {
 
 .list-markers {
     margin-bottom: 10px;
+}
+
+.title{
+    color: dodgerblue;
+    text-align: center;
+}
+
+.bar{
+    padding: 300px;
+   
 }

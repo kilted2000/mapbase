@@ -8,9 +8,7 @@ const map = new mapboxgl.Map({
     center: [-89.922409, 35.122134], // starting position [lng, lat]
     zoom: 10 // starting zoom
 });
-
-
-
+// Create the Mapbox Geocoder instance
 const geocoder = new MapboxGeocoder({
     accessToken: mapboxgl.accessToken,
     types: 'poi',
@@ -19,20 +17,69 @@ const geocoder = new MapboxGeocoder({
         // extract the item's maki icon or use a default
         const maki = item.properties.maki || 'marker';
         return `<div class='geocoder-dropdown-item'>
-<img class='geocoder-dropdown-icon' src='https://unpkg.com/@mapbox/maki@6.1.0/icons/${maki}-15.svg'>
-<span class='geocoder-dropdown-text'>
-${item.text}
-</span>
-</div>`;
-    },
+            <img class='geocoder-dropdown-icon' src='https://unpkg.com/@mapbox/maki@6.1.0/icons/${maki}-15.svg'>
+            <span class='geocoder-dropdown-text'>
+                ${item.text}
+                
+            </span>
+        </div>`;
+         },
     marker: {
         color: 'blue'
     },
     mapboxgl: mapboxgl
-})
+});
 
-
+// Initialize the geocoder and append it to the search field
 document.getElementById('search').appendChild(geocoder.onAdd(map));
+
+// monitor state in geocoder control
+// display what is typed in the searchbox as it changes
+// remove sites markers that do not match search
+
+
+
+
+// const places = () => {
+//     const searchInput = document.getElementById('search');
+//     const searchResults = document.getElementById('list');
+//     searchResults.innerHTML = ''; // Clear previous results
+
+//     // Get the user's input from the search field
+//     const searchTerm = searchInput.value.trim().toLowerCase();
+
+//     // You can use your own logic to fetch and filter search results based on searchTerm
+//     // For this example, we'll just create some dummy results
+//     const dummySearchResults = [
+//         'Search Result 1',
+//         'Search Result 2',
+//         'Search Result 3',
+//         // Add more results here
+//     ];
+
+//     dummySearchResults.forEach(result => {
+//         if (result.toLowerCase().includes(searchTerm)) {
+//             const li = document.createElement('li');
+//             li.textContent = result;
+//             li.addEventListener('click', () => {
+//                 // Handle the click event, e.g., show the selected result on the map
+//                 handleSelectedLocation(result);
+//             });
+//             searchResults.appendChild(li);
+//         }
+//     });
+// };
+
+// // Event listener for the search input
+// document.getElementById('search').addEventListener('input', places);
+
+// // Function to handle the selected location from the search results
+// const handleSelectedLocation = (location) => {
+//     // Handle the selected location here (e.g., show it on the map)
+//     console.log('Selected location:', location);
+//     // You can add code here to display the selected location on the map or perform other actions.
+// };
+
 
 
 
@@ -45,6 +92,9 @@ function hide() {
         document.getElementById('map').style = 'width: 100vw;';
     }
 }
+
+
+
 
 map.on('load', () => {
     hide('sidebar');

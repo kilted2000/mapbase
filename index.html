@@ -20,10 +20,20 @@
 <body>
 
     <div id="container">
-        <div id="sidebar" class="collapsed">
-            <div id="search"></div>
-            <h1>Memphis Explorer</h1>
-            <div class="list-group list-group-flush list-markers">
+        <div id="sidebar" class="collapsed bar">
+            <h1 class="title">Memphis Explorer</h1>
+            <!-- <input id="search" type="text" placeholder="search" onchange="places()"> -->
+            <div id="search-container">
+                <form action="">
+                <input id="search" type="text" placeholder="Search">
+                <button type="submit" >press me</button>
+            </form>
+                <div id="search-results">
+                    <ul id="list"></ul>
+                </div>
+            </div>
+            
+             <div class="list-group list-group-flush list-markers">
                 <a href="#" class="list-group-item  ">
                     Pink Palace
                 </a>
@@ -31,7 +41,7 @@
                 <a href="#" class="list-group-item ">Zoo</a>
                 <a href="#" class="list-group-item ">Bass Pro</a>
                 <a class="list-group-item ">UofM</a>
-            </div>
+            </div> 
             <button id="reset" type="button" class="btn btn-primary"
                 style="--bs-btn-padding-y: .15rem; --bs-btn-padding-x: .4rem; --bs-btn-font-size: .65rem;">Reset</button>
 
