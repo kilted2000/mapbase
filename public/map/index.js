@@ -36,7 +36,7 @@ document.getElementById('search').appendChild(geocoder.onAdd(map));
 // monitor state in geocoder control
 // display what is typed in the searchbox as it changes
   //maybe a li in a ul
-  //use conchange in the html
+  //use onchange in the html
   //dynamically create using DOM createElement
   //if search result is not in sites data list add new marker
 // remove sites markers that do not match search
