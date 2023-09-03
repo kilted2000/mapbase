@@ -32,7 +32,7 @@ const geocoder = new MapboxGeocoder({
 
 // Initialize the geocoder and append it to the search field
 document.getElementById('search').appendChild(geocoder.onAdd(map));
-
+console.log('search');
 // monitor state in geocoder control
 // display what is typed in the searchbox as it changes
   //maybe a li in a ul
