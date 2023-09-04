@@ -33,6 +33,7 @@ const geocoder = new MapboxGeocoder({
 // Initialize the geocoder and append it to the search field
 document.getElementById('search').appendChild(geocoder.onAdd(map));
 
+//display data sites array as default
 // monitor state in geocoder control
 // display what is typed in the searchbox as it changes
   //maybe a li in a ul
@@ -93,7 +94,7 @@ function hide() {
         x.classList.remove('collapsed');
     } else {
         x.classList.add('collapsed');
-        document.getElementById('map').style = 'width: 100vw;';
+        document.getElementById('map').width ='100vw';
     }
 }
 
@@ -256,7 +257,7 @@ map.on('load', () => {
 
 document.getElementById('reset').addEventListener('click', () => {
     map.flyTo({
-        center: [-89.966707, 35.141732],
+        center: [-90.022212,35.143383],
         zoom: 10,
         pitch: 0,
     });
