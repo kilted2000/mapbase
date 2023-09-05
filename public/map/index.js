@@ -2,19 +2,15 @@
 mapboxgl.accessToken = 'pk.eyJ1Ijoia2lsdGVkMjAwMCIsImEiOiJjbGx3cHZoMmsxcHM3M2RzMjg5OHJqeHFxIn0.eelsihCh88fDJ9yfEapJUQ';
 const map = new mapboxgl.Map({
     container: 'map',
-    // container ID
-    // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
-    style: 'mapbox://styles/mapbox/satellite-streets-v12', // style URL
-    center: [-89.922409, 35.122134], // starting position [lng, lat]
-    zoom: 10 // starting zoom
+    style: 'mapbox://styles/mapbox/satellite-streets-v12', 
+    center: [-90.022212,35.143383], 
+    zoom: 10 
 });
-// Create the Mapbox Geocoder instance
 const geocoder = new MapboxGeocoder({
     accessToken: mapboxgl.accessToken,
     types: 'poi',
     // see https://docs.mapbox.com/api/search/#geocoding-response-object for information about the schema of each response feature
     render: function (item) {
-        // extract the item's maki icon or use a default
         const maki = item.properties.maki || 'marker';
         return `<div class='geocoder-dropdown-item'>
             <img class='geocoder-dropdown-icon' src='https://unpkg.com/@mapbox/maki@6.1.0/icons/${maki}-15.svg'>
@@ -25,16 +21,16 @@ const geocoder = new MapboxGeocoder({
         </div>`;
          },
     marker: {
-        color: 'blue'
+        color: '#821a3e',
+        scale: 0.6
     },
     mapboxgl: mapboxgl
 });
 
-// Initialize the geocoder and append it to the search field
 document.getElementById('search').appendChild(geocoder.onAdd(map));
 
 //////////////////////////////////////////////////////////////////////
-//display data sites array as default
+//display data sites array as default-
 // monitor state in geocoder control
 // display what is typed in the searchbox as it changes
   //maybe a li in a ul
@@ -42,58 +38,12 @@ document.getElementById('search').appendChild(geocoder.onAdd(map));
   //dynamically create using DOM createElement
   //if search result is not in sites data list add new marker
 // remove sites markers that do not match search
+///////////////////////////////////////////////////////////////////////
+//default list of sites is shown when page loads in search list-
+//user starts typing in search
+//the search list changes as user types placename
+//as search list changes the markers of non matching sites are removed from map
 //////////////////////////////////////////////////////////////////////
-// const places = () => {
-//        // const defaultList = document.createElement('li');
-//         const defaultSites = JSON.stringify(sites);
-//         return document.getElementById('results').append(defaultSites, document.createElement('li'));
-// }
-
-
-
-
-
-// const places = () => {
-//     const searchInput = document.getElementById('search');
-//     const searchResults = document.getElementById('list');
-//     searchResults.innerHTML = ''; // Clear previous results
-
-//     // Get the user's input from the search field
-//     const searchTerm = searchInput.value.trim().toLowerCase();
-
-//     // You can use your own logic to fetch and filter search results based on searchTerm
-//     // For this example, we'll just create some dummy results
-//     const dummySearchResults = [
-//         'Search Result 1',
-//         'Search Result 2',
-//         'Search Result 3',
-//         // Add more results here
-//     ];
-
-//     dummySearchResults.forEach(result => {
-//         if (result.toLowerCase().includes(searchTerm)) {
-//             const li = document.createElement('li');
-//             li.textContent = result;
-//             li.addEventListener('click', () => {
-//                 // Handle the click event, e.g., show the selected result on the map
-//                 handleSelectedLocation(result);
-//             });
-//             searchResults.appendChild(li);
-//         }
-//     });
-// };
-
-// // Event listener for the search input
-// document.getElementById('search').addEventListener('input', places);
-
-// // Function to handle the selected location from the search results
-// const handleSelectedLocation = (location) => {
-//     // Handle the selected location here (e.g., show it on the map)
-//     console.log('Selected location:', location);
-//     // You can add code here to display the selected location on the map or perform other actions.
-// };
-
-
 
 
 function hide() {
@@ -106,13 +56,9 @@ function hide() {
     }
 }
 
-
-
-
 map.on('load', () => {
     hide('sidebar');
 });
-
 
 const sites = [
     {
@@ -131,7 +77,7 @@ const sites = [
         lngLat: [-89.975219, 35.128062]
     },
     {
-        name: 'Cannon Center',
+        name: 'Cannon Center for the Performing Arts',
         color: '#821a3e',
         lngLat: [-90.051276, 35.150922]
     },
@@ -170,21 +116,26 @@ const sites = [
         color: '#821a3e',
         lngLat: [-89.886695, 35.107927]
     },
+    {
+        name: 'Chucalissa Archaeological Park',
+        color: '#821a3e',
+        lngLat: [-90.129708,35.062155]
+    },
 ]
 
 sites.forEach(({ name, color, lngLat }) => {
-    // create the popup
+    
     const popup = new mapboxgl.Popup({ offset: 25 }).setText(
         name
     );
-    // Create a default Marker and add it to the map.
     const marker1 = new mapboxgl.Marker({ scale: 0.6, color })
         .setLngLat(lngLat)
         .setPopup(popup)
         .addTo(map);
 })
 
-
+//if search box is empty diplay default sites
+//otherwise change list as user types
 const places = () => {
             const results = document.getElementById('results');
 
@@ -198,16 +149,8 @@ const places = () => {
         places();
     });
     
-// // create the popup
-// const popup = new mapboxgl.Popup({ offset: 25 }).setText(
-//     'Mo Dhachaigh!'
-// );
 
-// // Create a default Marker and add it to the map.
-// const marker1 = new mapboxgl.Marker({ scale: 0.6 })
-//     .setLngLat([-89.922409, 35.122134])
-//     .setPopup(popup)
-//     .addTo(map);
+    //using zip-code layer to highlight city limits
 map.on('load', () => {
     map.addSource("zip-codes", {
         type: 'geojson',

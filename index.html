@@ -22,16 +22,16 @@
     <div id="container">
         <div id="sidebar" class="collapsed bar">
             <h1 class="title">Memphis Explorer</h1>
-             <div id="search">
+             <div id="search" onchange=""></div>
             <ul id="results"></ul>
-             </div>
+             
            
          
             <button id="reset" type="button" class="btn btn-primary"
                 style="--bs-btn-padding-y: .15rem; --bs-btn-padding-x: .4rem; --bs-btn-font-size: .65rem;">Reset</button>
-
+             
         </div>
-        <button id="toggle" class="toggleBtn" onclick="hide()">Toggle</button>
+        <button id="toggle" type="button" class="btn btn-primary" style="--bs-btn-padding-y: .15rem; --bs-btn-padding-x: .4rem; --bs-btn-font-size: .65rem;" onclick="hide()">Toggle</button>
         <div id="map"></div>
     </div>
 
