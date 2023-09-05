@@ -33,6 +33,7 @@ const geocoder = new MapboxGeocoder({
 // Initialize the geocoder and append it to the search field
 document.getElementById('search').appendChild(geocoder.onAdd(map));
 
+//////////////////////////////////////////////////////////////////////
 //display data sites array as default
 // monitor state in geocoder control
 // display what is typed in the searchbox as it changes
@@ -41,6 +42,13 @@ document.getElementById('search').appendChild(geocoder.onAdd(map));
   //dynamically create using DOM createElement
   //if search result is not in sites data list add new marker
 // remove sites markers that do not match search
+//////////////////////////////////////////////////////////////////////
+// const places = () => {
+//        // const defaultList = document.createElement('li');
+//         const defaultSites = JSON.stringify(sites);
+//         return document.getElementById('results').append(defaultSites, document.createElement('li'));
+// }
+
 
 
 
@@ -177,7 +185,19 @@ sites.forEach(({ name, color, lngLat }) => {
 })
 
 
+const places = () => {
+            const results = document.getElementById('results');
 
+            sites.forEach((site) => {
+                const li = document.createElement('li');
+                li.textContent = site.name;
+                results.appendChild(li);
+            });
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+        places();
+    });
+    
 // // create the popup
 // const popup = new mapboxgl.Popup({ offset: 25 }).setText(
 //     'Mo Dhachaigh!'
@@ -207,52 +227,6 @@ map.on('load', () => {
             visibility: 'visible'
         }
     }, 'road-label');
-    // map.addLayer({
-    //     id: 'zip-codes-outline',
-    //     type: 'line',
-    //     source: 'zip-codes',
-    //     paint: {
-    //         'line-color': 'white',
-    //         'line-width': 2
-
-    //     }
-    // }, 'road-label');
-
-    // map.on('click', (e) => {
-    //     const [selectedZip] = map.queryRenderedFeatures(e.point, {
-    //         layers: ['zip-codes-fill']
-    //     })
-    //     if (selectedZip) {
-    //         alert(`Zip Code: ${selectedZip.properties.name}`);
-    //     }
-    // })
-
-    //let hoveredPolygonId = null;
-
-    // map.on('mousemove', 'zip-codes-fill', (e) => {
-    //     if (e.features.length > 0) {
-    //         if (hoveredPolygonId !== null) {
-    //             map.setFeatureState(
-    //                 { source: 'zip-codes', id: hoveredPolygonId },
-    //                 { hover: false }
-    //             );
-    //         }
-    //         hoveredPolygonId = e.features[0].id;
-    //         map.setFeatureState(
-    //             { source: 'zip-codes', id: hoveredPolygonId },
-    //             { hover: true }
-    //         );
-    //     }
-    // });
-    // map.on('mouseleave', 'zip-codes-fill', () => {
-    //     if (hoveredPolygonId !== null) {
-    //         map.setFeatureState(
-    //             { source: 'zip-codes', id: hoveredPolygonId },
-    //             { hover: false }
-    //         );
-    //     }
-    //     hoveredPolygonId = null;
-    // });
 });
 
 document.getElementById('reset').addEventListener('click', () => {
