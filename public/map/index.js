@@ -2,9 +2,9 @@
 mapboxgl.accessToken = 'pk.eyJ1Ijoia2lsdGVkMjAwMCIsImEiOiJjbGx3cHZoMmsxcHM3M2RzMjg5OHJqeHFxIn0.eelsihCh88fDJ9yfEapJUQ';
 const map = new mapboxgl.Map({
     container: 'map',
-    style: 'mapbox://styles/mapbox/satellite-streets-v12', 
-    center: [-90.022212,35.143383], 
-    zoom: 10 
+    style: 'mapbox://styles/mapbox/satellite-streets-v12',
+    center: [-90.022212, 35.143383],
+    zoom: 10
 });
 const geocoder = new MapboxGeocoder({
     accessToken: mapboxgl.accessToken,
@@ -19,7 +19,7 @@ const geocoder = new MapboxGeocoder({
                 
             </span>
         </div>`;
-         },
+    },
     marker: {
         color: '#821a3e',
         scale: 0.6
@@ -33,10 +33,10 @@ document.getElementById('search').appendChild(geocoder.onAdd(map));
 //display data sites array as default-
 // monitor state in geocoder control
 // display what is typed in the searchbox as it changes
-  //maybe a li in a ul
-  //use onchange in the html
-  //dynamically create using DOM createElement
-  //if search result is not in sites data list add new marker
+//maybe a li in a ul
+//use onchange in the html
+//dynamically create using DOM createElement
+//if search result is not in sites data list add new marker
 // remove sites markers that do not match search
 ////////////////////////////////////////////////////////////////////////////////
 //default list of sites is shown when page loads in search list-
@@ -45,33 +45,6 @@ document.getElementById('search').appendChild(geocoder.onAdd(map));
 //as search list changes the markers of non matching sites are removed from map
 ////////////////////////////////////////////////////////////////////////////////
 //function template to update as user types 
-{/* <div id="app"></div>
-
-<script>
-    const App = function _App() {
-        return `
-      <h1>Hello Vanilla JS!</h1>
-      <div>
-        Example of state management in Vanilla JS
-      </div>
-      <br />
-      <input type="text" id="button">
-      <h1 id="texting"></h1>
-    `
-    };
-   
-    const updateTree = () => {
-        document.getElementById("app").innerHTML = App();
-        const inputElement = document.getElementById("button");
-        const textElement = document.getElementById("texting");
-        
-        inputElement.addEventListener("input", function display(event) {
-            textElement.textContent = event.target.value;
-            });
-    };
-    updateTree();
-  
-</script> */}
 
 function hide() {
     const x = document.getElementById('sidebar');
@@ -79,7 +52,7 @@ function hide() {
         x.classList.remove('collapsed');
     } else {
         x.classList.add('collapsed');
-        document.getElementById('map').width ='100vw';
+        document.getElementById('map').width = '100vw';
     }
 }
 
@@ -146,12 +119,12 @@ const sites = [
     {
         name: 'Chucalissa Archaeological Park',
         color: '#821a3e',
-        lngLat: [-90.129708,35.062155]
+        lngLat: [-90.129708, 35.062155]
     },
 ]
 
 sites.forEach(({ name, color, lngLat }) => {
-    
+
     const popup = new mapboxgl.Popup({ offset: 25 }).setText(
         name
     );
@@ -161,23 +134,22 @@ sites.forEach(({ name, color, lngLat }) => {
         .addTo(map);
 })
 
-//if search box is empty diplay default sites
+//if search box is empty display default sites
 //otherwise change list as user types
 const places = () => {
-            const results = document.getElementById('results');
-
-            sites.forEach((site) => {
-                const li = document.createElement('li');
-                li.textContent = site.name;
-                results.appendChild(li);
-            });
-    }
-    document.addEventListener('DOMContentLoaded', function() {
-        places();
+    sites.forEach((site) => {
+        const li = document.createElement('li');
+        li.textContent = site.name;
+        results.appendChild(li);
     });
-    
+}
 
-    //using zip-code layer to highlight city limits
+document.addEventListener('DOMContentLoaded', function () {
+    places();
+});
+
+
+//using zip-code layer to highlight city limits
 map.on('load', () => {
     map.addSource("zip-codes", {
         type: 'geojson',
@@ -201,7 +173,7 @@ map.on('load', () => {
 
 document.getElementById('reset').addEventListener('click', () => {
     map.flyTo({
-        center: [-90.022212,35.143383],
+        center: [-90.022212, 35.143383],
         zoom: 10,
         pitch: 0,
     });
