@@ -32,16 +32,16 @@ document.getElementById('search').appendChild(geocoder.onAdd(map));
 ////////////////////////////////////////////////////////////////////////////////
 //display data sites array as default-
 // monitor state in geocoder control
-// display what is typed in the searchbox as it changes
-//maybe a li in a ul
-//use onchange in the html
-//dynamically create using DOM createElement
+// display what is typed in the searchbox as it changes-
+//maybe a li in a ul-
+//use onchange in the html-
+//dynamically create using DOM createElement-
 //if search result is not in sites data list add new marker
 // remove sites markers that do not match search
 ////////////////////////////////////////////////////////////////////////////////
 //default list of sites is shown when page loads in search list-
-//user starts typing in search-moniter state
-//the search list changes as user types placename
+//user starts typing in search-moniter state-
+//the search list changes as user types placename-
 //as search list changes the markers of non matching sites are removed from map
 ////////////////////////////////////////////////////////////////////////////////
 //function template to update as user types 
@@ -134,20 +134,41 @@ sites.forEach(({ name, color, lngLat }) => {
         .addTo(map);
 })
 
-//if search box is empty display default sites
-//otherwise change list as user types
 const places = () => {
-    sites.forEach((site) => {
-        const li = document.createElement('li');
-        li.textContent = site.name;
-        results.appendChild(li);
+    const searchInput = document.getElementById('search');
+    const results = document.getElementById('results');
+
+    function displayResults(input) {
+        results.innerHTML = '';
+
+        if (input === '') {
+            sites.forEach((site) => {
+                const li = document.createElement('li');
+                li.textContent = site.name;
+                results.appendChild(li);
+            });
+        } else {
+            const matchingSites = sites.filter((site) =>
+                site.name.toLowerCase().includes(input.toLowerCase())
+            );
+            matchingSites.forEach((site) => {
+                const li = document.createElement('li');
+                li.textContent = site.name;
+                results.appendChild(li);
+            });
+        }
+    }
+    searchInput.addEventListener('input', function (event) {
+        const inputValue = event.target.value.trim(); 
+        displayResults(inputValue);
     });
-}
+
+    displayResults('');
+};
 
 document.addEventListener('DOMContentLoaded', function () {
     places();
 });
-
 
 //using zip-code layer to highlight city limits
 map.on('load', () => {
