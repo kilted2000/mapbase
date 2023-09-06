@@ -44,7 +44,34 @@ document.getElementById('search').appendChild(geocoder.onAdd(map));
 //the search list changes as user types placename
 //as search list changes the markers of non matching sites are removed from map
 ////////////////////////////////////////////////////////////////////////////////
+//function template to update as user types 
+{/* <div id="app"></div>
 
+<script>
+    const App = function _App() {
+        return `
+      <h1>Hello Vanilla JS!</h1>
+      <div>
+        Example of state management in Vanilla JS
+      </div>
+      <br />
+      <input type="text" id="button">
+      <h1 id="texting"></h1>
+    `
+    };
+   
+    const updateTree = () => {
+        document.getElementById("app").innerHTML = App();
+        const inputElement = document.getElementById("button");
+        const textElement = document.getElementById("texting");
+        
+        inputElement.addEventListener("input", function display(event) {
+            textElement.textContent = event.target.value;
+            });
+    };
+    updateTree();
+  
+</script> */}
 
 function hide() {
     const x = document.getElementById('sidebar');
