@@ -29,7 +29,7 @@ const geocoder = new MapboxGeocoder({
 
 document.getElementById('search').appendChild(geocoder.onAdd(map));
 
-//////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 //display data sites array as default-
 // monitor state in geocoder control
 // display what is typed in the searchbox as it changes
@@ -38,12 +38,12 @@ document.getElementById('search').appendChild(geocoder.onAdd(map));
   //dynamically create using DOM createElement
   //if search result is not in sites data list add new marker
 // remove sites markers that do not match search
-///////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 //default list of sites is shown when page loads in search list-
-//user starts typing in search
+//user starts typing in search-moniter state
 //the search list changes as user types placename
 //as search list changes the markers of non matching sites are removed from map
-//////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 
 
 function hide() {
