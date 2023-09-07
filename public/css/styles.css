@@ -69,3 +69,7 @@ button {
     padding: 300px;
    
 }
+
+.relevant{
+    visibility: hidden;
+}
