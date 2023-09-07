@@ -126,6 +126,8 @@ const sites = [
     },
 ]
 
+const markers = [];
+
 sites.forEach(({ name, color, lngLat }) => {
 
     const popup = new mapboxgl.Popup({ offset: 25 }).setText(
@@ -136,6 +138,7 @@ sites.forEach(({ name, color, lngLat }) => {
         .setPopup(popup)
         .addTo(map);
         
+    markers.push(marker);
 })
 
 const places = () => {
@@ -146,21 +149,28 @@ const places = () => {
         results.innerHTML = '';
 
         if (input === '') {
-            sites.forEach((site) => {
+            sites.forEach((site, index) => {
                 const li = document.createElement('li');
                 li.textContent = site.name;
                 results.appendChild(li);
+                markers[index].addTo(map); 
             });
         } else {
-            const matchingSites = sites.filter((site) =>
+            const matchingSites = sites.filter((site, index) =>
                 site.name.toLowerCase().includes(input.toLowerCase())
             );
-            matchingSites.forEach((site) => {
+            matchingSites.forEach((site, index) => {
                 const li = document.createElement('li');
                 li.textContent = site.name;
                 results.appendChild(li);
+                markers[index].addTo(map);
                 //li.classList.add('relevant');//try to fix
             });
+            sites.forEach((site, index) => {
+                if (!matchingSites.includes(site)) {
+                    markers[index].remove(); 
+                }
+                });
         }
     }
     searchInput.addEventListener('input', function (event) {
