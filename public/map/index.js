@@ -37,15 +37,15 @@ document.getElementById('search').appendChild(geocoder.onAdd(map));
 //maybe a li in a ul-
 //use onchange in the html-
 //dynamically create using DOM createElement-
-//if search result is not in sites data list add new marker
-// remove sites markers that do not match search
+//if search result is not in sites data list add new marker-
+// remove sites markers that do not match search-
 ////////////////////////////////////////////////////////////////////////////////
 //default list of sites is shown when page loads in search list-
 //user starts typing in search-moniter state-
 //the search list changes as user types placename-
-//as search list changes the markers of non matching sites are removed from map
-//maybe add and remove classes
-//if place is in the sites list with id = 'results 'add marker otherwise remove marker
+//as search list changes the markers of non matching sites are removed from map-
+//maybe add and remove classes-
+//if place is in the sites list with id = 'results 'add marker otherwise remove marker-
 ////////////////////////////////////////////////////////////////////////////////
 
 
@@ -164,7 +164,6 @@ const places = () => {
                 li.textContent = site.name;
                 results.appendChild(li);
                 markers[index].addTo(map);
-                //li.classList.add('relevant');//try to fix
             });
             sites.forEach((site, index) => {
                 if (!matchingSites.includes(site)) {
@@ -184,25 +183,6 @@ const places = () => {
 document.addEventListener('DOMContentLoaded', function () {
     places();
 });
-
-//try to fix entire function
-// function addMarkers(){
-//     const li = document.querySelectorAll('li');
-//     if (li.classList.contains('relevant')) {
-//        li.classList.remove('relevant');
-//        const marker = new mapboxgl.Marker({ scale: 0.6, color })
-//        .setLngLat(lngLat)
-//        .setPopup(popup)
-//        .remove();
-//     } else {
-//         li.classList.add('relevant');
-      
-//        const marker = new mapboxgl.Marker({ scale: 0.6, color })
-//             .setLngLat(lngLat)
-//             .setPopup(popup)
-//             .addTo(map);
-//     }
-// }
 
 //using zip-code layer to highlight city limits
 map.on('load', () => {
