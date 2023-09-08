@@ -19,11 +19,11 @@
 
 <body>
 
-    <div id="container" class=".container-md">
-        <div id="sidebar" class="collapsed bar">
+    <div id="container" class=" container container-md">
+        <div id="sidebar" class="collapsed bar side">
             <h1 class="title">Memphis Explorer</h1>
-            <div id="search" class="container-fluid"></div>
-            <ul id="results"></ul>
+            <div id="search" class="container-fluid search-input"></div>
+            <ul id="results" class="result-list list-group list-group-flush"></ul>
 <!-- use bootstrap list group classes to style results -->
 
 
@@ -31,7 +31,7 @@
                 style="--bs-btn-padding-y: .15rem; --bs-btn-padding-x: .4rem; --bs-btn-font-size: .65rem;">Reset</button>
 
         </div>
-        <button id="toggle" type="button" class="btn btn-primary"
+        <button id="toggle" type="button" class="btn btn-primary tog"
             style="--bs-btn-padding-y: .15rem; --bs-btn-padding-x: .4rem; --bs-btn-font-size: .65rem;"
             onclick="hide()">Toggle</button>
         <div id="map" class="container-fluid"></div>

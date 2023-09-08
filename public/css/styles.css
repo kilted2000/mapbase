@@ -10,6 +10,7 @@ body {
   display: flex;
   height: 100%;
   width: 100%;
+  margin: 0;
 }
 
 #sidebar {
@@ -19,22 +20,13 @@ body {
   z-index: 2;
   height: 90%;
   padding: 3rem;
+  border-radius: 30%;
 }
 /* on tablet search, toggle btn and h1 go to top and become horizontal 
 results go to bottom and go horizontal
 */
-@media screen and (max-width: 884px) {
-  #search {
-    position: fixed;
-    width: 100%;
-  }
-  #sidebar {
-    position: fixed;
-    width: 100%;
-  }
-  #toggle {
-    position: fixed;
-  }
+#results{
+    list-style: none;
 }
 
 #map {
@@ -46,6 +38,7 @@ results go to bottom and go horizontal
 
 #search {
   margin-bottom: 10px;
+  
 }
 
 button {
@@ -63,7 +56,6 @@ button {
   right: 50%;
   top: 10px;
 }
-
 .collapsed {
   transform: translateX(-23rem);
 }
@@ -77,11 +69,44 @@ button {
   text-align: center;
 }
 
-/* .bar{
+.bar{
     padding: 300px;
    
-} */
+} 
 
 .relevant {
   visibility: hidden;
 }
+/* add media qu for middle size screen */
+@media screen and (max-width: 886px) {
+    #search {
+      position: fixed;
+      width: 50%;
+      top: 20px;
+      right: 120px;
+    }
+    #sidebar {
+      position: fixed;
+      width: 100vw;
+      height: 10%;
+      border-radius: 0;
+    }
+    #toggle {
+      top: 0;
+      left: 15px;
+      width: 50px;
+    }
+  
+    #results{
+     visibility: hidden; 
+    }
+  
+    .title{
+    visibility: hidden;
+    }
+    #reset{
+        position: fixed;
+        top: 0;
+        right: 25px;
+    }
+  }
