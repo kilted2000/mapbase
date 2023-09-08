@@ -9,7 +9,7 @@ const map = new mapboxgl.Map({
 const geocoder = new MapboxGeocoder({
     accessToken: mapboxgl.accessToken,
     types: 'poi', 
-    limit: 0,
+    limit: 'none',
     // see https://docs.mapbox.com/api/search/#geocoding-response-object for information about the schema of each response feature
     // render: function (item) {
     //     const maki = item.properties.maki || 'marker';

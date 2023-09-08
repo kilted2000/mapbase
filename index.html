@@ -19,12 +19,12 @@
 
 <body>
 
-    <div id="container">
+    <div id="container" class=".container-md">
         <div id="sidebar" class="collapsed bar">
             <h1 class="title">Memphis Explorer</h1>
-            <div id="search"></div>
+            <div id="search" class="container-fluid"></div>
             <ul id="results"></ul>
-
+<!-- use bootstrap list group classes to style results -->
 
 
             <button id="reset" type="button" class="btn btn-primary"
@@ -34,7 +34,7 @@
         <button id="toggle" type="button" class="btn btn-primary"
             style="--bs-btn-padding-y: .15rem; --bs-btn-padding-x: .4rem; --bs-btn-font-size: .65rem;"
             onclick="hide()">Toggle</button>
-        <div id="map"></div>
+        <div id="map" class="container-fluid"></div>
     </div>
 
 
