@@ -8,8 +8,8 @@ const map = new mapboxgl.Map({
 });
 const geocoder = new MapboxGeocoder({
     accessToken: mapboxgl.accessToken,
-    types: 'poi', 
-    limit: 'none',
+    //types: 'place', 
+    limit: 0,
     // see https://docs.mapbox.com/api/search/#geocoding-response-object for information about the schema of each response feature
     // render: function (item) {
     //     const maki = item.properties.maki || 'marker';
@@ -168,6 +168,8 @@ const places = () => {
             sites.forEach((site, index) => {
                 if (!matchingSites.includes(site)) {
                     markers[index].remove(); 
+                }else{
+                    markers[index].addTo(map);
                 }
                 });
         }
