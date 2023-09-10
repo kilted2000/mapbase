@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 const { minify } = require("terser");
+const fs = require("fs").promises;
 const PORT = process.env.PORT || 3000;
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -9,7 +10,7 @@ app.use(express.static("public"));
 
 
 
-const fs = require("fs").promises;
+
 
 async function minifyJavaScript() {
   try {
