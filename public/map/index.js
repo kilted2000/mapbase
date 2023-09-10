@@ -182,18 +182,18 @@ map.on('load', () => {
         promoteId: 'name'
 
     })
-    map.addLayer({
-        id: 'zip-codes-fill',
-        type: 'fill',
-        source: 'zip-codes',
-        paint: {
-            'fill-color': 'steelblue',
-            'fill-opacity': 0.3
-        },
-        layout: {
-            visibility: 'visible'
-        }
-    }, 'road-label');
+    // map.addLayer({
+    //     id: 'zip-codes-fill',
+    //     type: 'fill',
+    //     source: 'zip-codes',
+    //     paint: {
+    //         'fill-color': 'steelblue',
+    //         'fill-opacity': 0.3
+    //     },
+    //     layout: {
+    //         visibility: 'visible'
+    //     }
+    // }, 'road-label');
 });
 
 document.getElementById('reset').addEventListener('click', () => {
