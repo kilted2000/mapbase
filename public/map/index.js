@@ -1,22 +1,22 @@
 
-// mapboxgl.accessToken = 'pk.eyJ1Ijoia2lsdGVkMjAwMCIsImEiOiJjbGx3cHZoMmsxcHM3M2RzMjg5OHJqeHFxIn0.eelsihCh88fDJ9yfEapJUQ';
-// const map = new mapboxgl.Map({
-//     container: 'map',
-//     style: 'mapbox://styles/mapbox/satellite-streets-v12',
-//     center: [-90.022212, 35.143383],
-//     zoom: 10
-// });
-// const geocoder = new MapboxGeocoder({
-//     accessToken: mapboxgl.accessToken,
-//     limit: 0,
-//     marker: {
-//         color: '#821a3e',
-//         scale: 0.6
-//     },
-//     mapboxgl: mapboxgl
-// });
+mapboxgl.accessToken = 'pk.eyJ1Ijoia2lsdGVkMjAwMCIsImEiOiJjbGx3cHZoMmsxcHM3M2RzMjg5OHJqeHFxIn0.eelsihCh88fDJ9yfEapJUQ';
+const map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mapbox/satellite-streets-v12',
+    center: [-90.022212, 35.143383],
+    zoom: 10
+});
+const geocoder = new MapboxGeocoder({
+    accessToken: mapboxgl.accessToken,
+    limit: 0,
+    marker: {
+        color: '#821a3e',
+        scale: 0.6
+    },
+    mapboxgl: mapboxgl
+});
 
-// document.getElementById('search').appendChild(geocoder.onAdd(map));
+document.getElementById('search').appendChild(geocoder.onAdd(map));
 
 ////////////////////////////////////////////////////////////////////////////////
 //display data sites array as default-
