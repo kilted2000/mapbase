@@ -8,19 +8,7 @@ const map = new mapboxgl.Map({
 });
 const geocoder = new MapboxGeocoder({
     accessToken: mapboxgl.accessToken,
-    //types: 'place', 
     limit: 0,
-    // see https://docs.mapbox.com/api/search/#geocoding-response-object for information about the schema of each response feature
-    // render: function (item) {
-    //     const maki = item.properties.maki || 'marker';
-    //     return `<div class='geocoder-dropdown-item'>
-    //         <img class='geocoder-dropdown-icon' src='https://unpkg.com/@mapbox/maki@6.1.0/icons/${maki}-15.svg'>
-    //         <span class='geocoder-dropdown-text'>
-    //             ${item.text}
-                
-    //         </span>
-    //     </div>`;
-    // },
     marker: {
         color: '#821a3e',
         scale: 0.6
