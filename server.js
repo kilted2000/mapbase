@@ -1,13 +1,12 @@
-// const express = require('express');
-// const bodyParser = require('body-parser');
-// const compression = require("compression");
+
 import express from 'express';
 import bodyParser from 'body-parser';
+import mapboxgl from 'mapbox-gl';
 import compression from 'compression';
 import routeCache from "./routeCache";
 const app = express();
 app.use(compression());
-
+app.use(mapboxgl());
 const PORT = process.env.PORT || 3000;
 
 app.use(bodyParser.urlencoded({ extended: true }));
