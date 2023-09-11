@@ -8,7 +8,6 @@ import routeCache from "./routeCache";
 const app = express();
 app.use(compression());
 
-//const cache = require("../routeCache");
 const PORT = process.env.PORT || 3000;
 
 app.use(bodyParser.urlencoded({ extended: true }));
