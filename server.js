@@ -3,7 +3,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import mapboxgl from 'mapbox-gl';
 import compression from 'compression';
-import routeCache from "./routeCache";
+import routeCache from "../routeCache.js";
 const app = express();
 app.use(compression());
 app.use(mapboxgl());
