@@ -1,58 +1,29 @@
-const express = require('express');
-const bodyParser = require('body-parser');
+// const express = require('express');
+// const bodyParser = require('body-parser');
+// const compression = require("compression");
+import express from 'express';
+import bodyParser from 'body-parser';
+import compression from 'compression';
+import routeCache from "./routeCache";
 const app = express();
-const { minify } = require("terser");
-const fs = require("fs").promises;
+app.use(compression());
+
+//const cache = require("../routeCache");
 const PORT = process.env.PORT || 3000;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
+app.get("/",routeCache(300), function (req, res) {
+  res.sendFile(__dirname + "/index.html");
+});
+
+app.post("/", function (req, res) {
+  res.sendFile(__dirname + "/index.html");
+});
 
 
 
-
-async function minifyJavaScript() {
-  try {
-    // Read the original JavaScript file
-    const originalCode = await fs.readFile("index.js", "utf8");
-
-    // Minify the JavaScript code
-    const result = await minify(originalCode, {
-      sourceMap: {
-        // Enable source map generation
-        filename: "minified.js",
-        url: "minified.js.map",
-      },
-    });
-
-    // Write the minified code to a new file
-    await fs.writeFile("minified.js", result.code, "utf8");
-
-    // Write the source map to a new file
-    await fs.writeFile("minified.js.map", result.map, "utf8");
-
-    console.log("JavaScript minified and saved as minified.js");
-    console.log("Source map saved as minified.js.map");
-  } catch (error) {
-    console.error("Error while minifying:", error);
-  }
-}
-
-// Call the minification function
-minifyJavaScript();
-
-
-app.get("/", function(req, res) {
-    res.sendFile(__dirname + "/index.html");
-    });
-
-  app.post("/", function(req, res) {
-    res.sendFile(__dirname + "/index.html");
-    });
-
-
-
-    app.listen(PORT, () => {
-      console.log(`server started on port ${PORT}`);
-    });
+app.listen(PORT, () => {
+  console.log(`server started on port ${PORT}`);
+});
