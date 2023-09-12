@@ -1,4 +1,4 @@
-
+//try using require instead of import
 import express from 'express';
 import bodyParser from 'body-parser';
 import mapboxgl from 'mapbox-gl';
