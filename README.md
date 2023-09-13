@@ -4,12 +4,12 @@
 
 Memphis Explorer is an app I created as a solo project to join the Chingu program. With it, I hope to demonstrate my skills as a full stack web developer. I also wanted to show off some of the amazing things to do in my hometown, Memphis, TN. It utilizes the [MapBox GL JS library.](https://docs.mapbox.com/mapbox-gl-js/guides/) 
 
-## FEATURES
+## Features
 - Fully responsive design
 - Dynamically create map markers and site list
 - The Search is case-insensitive 
 
-## Dependencies AND TECHNOLOGIES USED
+## Dependencies AND Technologies Used
 - [Node.js](https://nodejs.org/en)
 - [Express.js](https://expressjs.com/)
 - [Body Parser](https://www.npmjs.com/package/body-parser)
