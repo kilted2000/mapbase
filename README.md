@@ -9,7 +9,7 @@ Memphis Explorer is an app I created as a solo project to join the Chingu progra
 - Dynamically create map markers and site list
 - The Search is case-insensitive 
 
-## Dependencies AND Technologies Used
+## Dependencies And Technologies Used
 - [Node.js](https://nodejs.org/en)
 - [Express.js](https://expressjs.com/)
 - [Body Parser](https://www.npmjs.com/package/body-parser)
