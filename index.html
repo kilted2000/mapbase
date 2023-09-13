@@ -5,239 +5,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MapBox Chingu Project</title>
-    <!-- <link href="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css" rel="stylesheet">
-    <script src="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js"></script>
-    <script
-        src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
-    <link rel="stylesheet"
-        href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css"
-        type="text/css"> -->
-        <!-- <script src='https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js'></script>
-    <link href='https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css' rel='stylesheet' />
+ 
+<script src='https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css' rel='stylesheet' />
+
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous"> -->
-        <script src='https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js'></script>
-<link href='https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css' rel='stylesheet' />
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous"> 
+   
 
     <link rel="stylesheet" href="css/styles.css">
-    <!-- <link rel="preload" as="style" href="css/styles.css"> -->
-    <script src='https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js'></script>
-<link href='https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css' rel='stylesheet' />
-<script type="module" src="server.js"></script>
+     <link rel="preload" as="style" href="css/styles.css"> 
+   
+   
 
 </head>
 
 <body>
+    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
+<link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css" type="text/css">
+
     <div id="map" class="container-fluid"></div>
-<script>document.addEventListener('DOMContentLoaded', function () {
-    mapboxgl.accessToken = 'pk.eyJ1Ijoia2lsdGVkMjAwMCIsImEiOiJjbGx3cHZoMmsxcHM3M2RzMjg5OHJqeHFxIn0.eelsihCh88fDJ9yfEapJUQ';
-    const map = new mapboxgl.Map({
-        container: 'map',
-        style: 'mapbox://styles/mapbox/satellite-streets-v12',
-        center: [-90.022212, 35.143383],
-        zoom: 10
-    });
-    const geocoder = new MapboxGeocoder({
-        accessToken: mapboxgl.accessToken,
-        limit: 0,
-        marker: {
-            color: '#821a3e',
-            scale: 0.6
-        },
-        mapboxgl: mapboxgl
-    });
-    
-    document.getElementById('search').appendChild(geocoder.onAdd(map));
-    
-    ////////////////////////////////////////////////////////////////////////////////
-    //display data sites array as default-
-    // monitor state in geocoder control
-    // display what is typed in the searchbox as it changes-
-    //maybe a li in a ul-
-    //use onchange in the html-
-    //dynamically create using DOM createElement-
-    //if search result is not in sites data list add new marker-
-    // remove sites markers that do not match search-
-    ////////////////////////////////////////////////////////////////////////////////
-    //default list of sites is shown when page loads in search list-
-    //user starts typing in search-moniter state-
-    //the search list changes as user types placename-
-    //as search list changes the markers of non matching sites are removed from map-
-    //maybe add and remove classes-
-    //if place is in the sites list with id = 'results 'add marker otherwise remove marker-
-    ////////////////////////////////////////////////////////////////////////////////
-    
-    
-    function hide() {
-        const x = document.getElementById('sidebar');
-        if (x.classList.contains('collapsed')) {
-            x.classList.remove('collapsed');
-        } else {
-            x.classList.add('collapsed');
-            document.getElementById('map').width = '100vw';
-        }
-    }
-    
-    map.on('load', () => {
-        hide('sidebar');
-    });
-    
-    const sites = [
-        {
-            name: 'Pink Palace Museum',
-            color: '#821a3e',
-            lngLat: [-89.959843, 35.124999]
-        },
-        {
-            name: 'Brooks Museum',
-            color: '#821a3e',
-            lngLat: [-89.994457, 35.144549]
-        },
-        {
-            name: 'McBride Rugby Pitch',
-            color: '#821a3e',
-            lngLat: [-89.975219, 35.128062]
-        },
-        {
-            name: 'Cannon Center for the Performing Arts',
-            color: '#821a3e',
-            lngLat: [-90.051276, 35.150922]
-        },
-        {
-            name: 'Bass Pro Shop-Pyramid',
-            color: '#821a3e',
-            lngLat: [-90.052024, 35.155971]
-        },
-        {
-            name: 'University of Memphis-Main Campus',
-            color: '#821a3e',
-            lngLat: [-89.937324, 35.119886]
-        },
-        {
-            name: 'The Liberty Bowl',
-            color: '#821a3e',
-            lngLat: [-89.979579, 35.120348]
-        },
-        {
-            name: 'Memphis Zoo',
-            color: '#821a3e',
-            lngLat: [-89.993513, 35.150902]
-        },
-        {
-            name: 'Sun Studios',
-            color: '#821a3e',
-            lngLat: [-90.037745, 35.139060]
-        },
-        {
-            name: 'Beale Street',
-            color: '#821a3e',
-            lngLat: [-90.051399, 35.139518]
-        },
-        {
-            name: 'Corky\'s BBQ',
-            color: '#821a3e',
-            lngLat: [-89.886695, 35.107927]
-        },
-        {
-            name: 'Chucalissa Archaeological Park',
-            color: '#821a3e',
-            lngLat: [-90.129708, 35.062155]
-        },
-    ]
-    
-    const markers = [];
-    
-    sites.forEach(({ name, color, lngLat }) => {
-    
-        const popup = new mapboxgl.Popup({ offset: 25 }).setText(
-            name
-        );
-        const marker = new mapboxgl.Marker({ scale: 0.8, color })
-            .setLngLat(lngLat)
-            .setPopup(popup)
-            .addTo(map);
-            
-        markers.push(marker);
-    })
-    
-    const places = () => {
-        const searchInput = document.getElementById('search');
-        const results = document.getElementById('results');
-    
-        function displayResults(input) {
-            results.innerHTML = '';
-    
-            if (input === '') {
-                sites.forEach((site, index) => {
-                    const li = document.createElement('li');
-                    li.textContent = site.name;
-                    results.appendChild(li);
-                    markers[index].addTo(map); 
-                });
-            } else {
-                const matchingSites = sites.filter((site, index) =>
-                    site.name.toLowerCase().includes(input.toLowerCase())
-                );
-                matchingSites.forEach((site, index) => {
-                    const li = document.createElement('li');
-                    li.textContent = site.name;
-                    results.appendChild(li);
-                    markers[index].addTo(map);
-                });
-                sites.forEach((site, index) => {
-                    if (!matchingSites.includes(site)) {
-                        markers[index].remove(); 
-                    }else{
-                        markers[index].addTo(map);
-                    }
-                    });
-            }
-        }
-        searchInput.addEventListener('input', function (event) {
-            const inputValue = event.target.value.trim(); 
-            displayResults(inputValue);
-        });
-    
-        displayResults('');
-    };
-    
-    document.addEventListener('DOMContentLoaded', function () {
-        places();
-    });
-    
-    //using zip-code layer to highlight city limits
-    map.on('load', () => {
-        map.addSource("zip-codes", {
-            type: 'geojson',
-            data: 'data/zip-codes.geojson',
-            promoteId: 'name'
-    
-        })
-        map.addLayer({
-            id: 'zip-codes-fill',
-            type: 'fill',
-            source: 'zip-codes',
-            paint: {
-                'fill-color': 'steelblue',
-                'fill-opacity': 0.3
-            },
-            layout: {
-                visibility: 'visible'
-            }
-        }, 'road-label');
-    });
-    
-    document.getElementById('reset').addEventListener('click', () => {
-        map.flyTo({
-            center: [-90.022212, 35.143383],
-            zoom: 10,
-            pitch: 0,
-        });
-        window.location.reload();
-    });
-    
-    });</script>
 
     <div id="container" class=" container container-md">
         <div id="sidebar" class="collapsed bar side">
@@ -254,15 +42,15 @@
         <button id="toggle" type="button" class="btn btn-primary tog"
             style="--bs-btn-padding-y: .15rem; --bs-btn-padding-x: .4rem; --bs-btn-font-size: .65rem;"
             onclick="hide()">Toggle</button>
-       
+
     </div>
 
 
 
-    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
-        crossorigin="anonymous"></script> -->
-    <!-- <script type="module" src="map/index.js"></script> -->
+        crossorigin="anonymous"></script> 
+     <script  src="map/index.js"></script>
 </body>
 
 </html>

@@ -16,7 +16,6 @@
   "name": "mapbox",
   "version": "1.0.0",
   "main": "server.js",
-  "type": "module",
   "author": "Richard Whittington",
   "license": "ISC",
   "description": ""
